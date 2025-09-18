@@ -1,4 +1,4 @@
-🏏 Cricket Chatbot
+#🏏 Cricket Chatbot
 
 A simple web-based chatbot that answers only cricket-related questions using a Large Language Model (LLM) from Fireworks AI.
 ## ⚙️ Setup Instructions
