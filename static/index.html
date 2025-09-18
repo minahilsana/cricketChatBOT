@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cricket Chatbot</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 30px auto; }
+    #messages { border: 1px solid #ccc; padding: 10px; min-height: 200px; }
+    .msg { margin-bottom: 10px; }
+    .user { color: blue; }
+    .bot { color: green; }
+  </style>
+</head>
+<body>
+  <h1>🏏 Cricket Chatbot</h1>
+  <div id="messages"></div>
+
+  <input id="question" placeholder="Ask about cricket..." style="width:80%">
+  <button onclick="send()">Send</button>
+
+  <script>
+    const input = document.getElementById('question');
+    const messagesDiv = document.getElementById('messages');
+
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') send();
+    });
+
+    async function send() {
+      const q = input.value.trim();
+      if (!q) return;
+
+      messagesDiv.innerHTML += `<div class="msg user">You: ${q}</div>`;
+
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({question: q})
+      });
+
+      const data = await res.json();
+      messagesDiv.innerHTML += `<div class="msg bot">Bot: ${data.answer}</div>`;
+      input.value = "";
+    }
+  </script>
+</body>
+</html>
